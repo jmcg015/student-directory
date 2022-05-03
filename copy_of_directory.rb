@@ -1,18 +1,18 @@
 def input_students
-  puts "Please enter the names of the students"
+  puts "Please enter the names, height, country of birth and cohort of the students"
   puts "To finish, hit return three times"
   #Create empty array
   students = []
   #get the first name
   name = gets.chomp
-  puts "Enter the student's height"
   height = gets.chomp
-  puts "Enter student's country of birth"
-  birth_country = gets.chomp
+  country = gets.chomp
+  cohort = gets.chomp.to_sym
   #while the name is not empty, repeat this code
-  while !name.empty? do
+  while !name.empty? && !height.empty? && !country.empty? do
+    cohort = :november if cohort.empty?
     #add the student hash to the array
-    students << {name: name, cohort: :november, height: height, country_of_birth: birth_country}
+    students << {name: name, cohort: cohort, height: height, country_of_birth: country}
     if students.length == 1
       puts "Now we have #{students.count} student"
     else
@@ -21,7 +21,8 @@ def input_students
     #get another name from the user
     name = gets.chomp
     height = gets.chomp
-    birth_country = gets.chomp
+    country = gets.chomp
+    cohort = gets.chomp
   end
   #return the array of students
   students
@@ -35,7 +36,7 @@ end
 def print(students)
   i = 0
   while i < students.length
-    puts "#{i + 1}. #{students[i][:name]}, #{students[i][:height]}, #{students[i][:birth_country]}, (#{students[i][:cohort]})"
+    puts "#{i + 1}. #{students[i][:name]}, #{students[i][:height]}, #{students[i][:country_of_birth]}, (#{students[i][:cohort]})".center(20)
     i += 1
   end
   # if !students.empty?
@@ -47,9 +48,9 @@ end
 
 def print_footer(students)
   if students.count == 1
-    puts "Overall, we have #{students.count} great student"
+    puts "Overall, we have #{students.count} great student".center(20)
   else
-    puts "Overall, we have #{students.count} great students"
+    puts "Overall, we have #{students.count} great students".center(20)
   end
 end
 
