@@ -29,8 +29,10 @@ puts "----------"
 end
 
 def print(students)
-  students.each_with_index do |student, index|
-    puts "#{index + 1}. #{student[:name]}, #{student[:height]}, #{student[:birth_country]} (#{student[:cohort]} cohort)"
+  if !students.empty?
+    students.each_with_index do |student, index|
+      puts "#{index + 1}. #{student[:name]}, #{student[:height]}, #{student[:birth_country]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 
