@@ -44,7 +44,15 @@ def first_letter(students)
   end
 end
 
+def shorter_than(students)
+  students.each do |student|
+    if student[:name].length <= 12
+      puts "#{student[:name]} is shorter than 12 character"
+    end
+  end
+end
+
 students = input_students
 print_header
-first_letter(students)
+shorter_than(students)
 print_footer(students)
