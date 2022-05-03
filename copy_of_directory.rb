@@ -36,7 +36,15 @@ def print_footer(students)
   end
 end
 
+def first_letter(students)
+  students.each do |student|
+    if student[:name].chars.first.downcase == "d"
+      puts student[:name]
+    end
+  end
+end
+
 students = input_students
 print_header
-print(students)
+first_letter(students)
 print_footer(students)
