@@ -4,15 +4,15 @@ def input_students
   #Create empty array
   students = []
   #get the first name
-  name = gets.chomp
+  name = gets.strip
   height = gets.chomp
   country = gets.chomp
   cohort = gets.chomp.to_sym
   #while the name is not empty, repeat this code
-  while !name.empty? && !height.empty? && !country.empty? do
+  while !name.empty? && !height.empty? && !country.empty?
     cohort = :november if cohort.empty?
     #add the student hash to the array
-    students << {name: name, cohort: cohort, height: height, country_of_birth: country}
+    students << { name: name, cohort: cohort, height: height, country_of_birth: country }
     if students.length == 1
       puts "Now we have #{students.count} student"
     else
@@ -30,7 +30,7 @@ end
 
 def print_header
   puts "The students of Villains Academy"
-puts "----------"
+  puts "----------"
 end
 
 def print(students)
@@ -39,11 +39,6 @@ def print(students)
     puts "#{i + 1}. #{students[i][:name]}, #{students[i][:height]}, #{students[i][:country_of_birth]}, (#{students[i][:cohort]})".center(20)
     i += 1
   end
-  # if !students.empty?
-  #   students.each_with_index do |student, index|
-  #     puts "#{index + 1}. #{student[:name]}, #{student[:height]}, #{student[:birth_country]} (#{student[:cohort]} cohort)"
-  #   end
-  # end
 end
 
 def print_footer(students)
@@ -52,6 +47,21 @@ def print_footer(students)
   else
     puts "Overall, we have #{students.count} great students".center(20)
   end
+end
+
+def print_by_cohort(students)
+  sorted_by_cohort = {}
+  students.each do |student|
+    cohort = student[:cohort]
+    name = student[:name]
+
+    if sorted_by_cohort[cohort] == nil
+      sorted_by_cohort[cohort] = [name]
+    else
+      sorted_by_cohort[cohort] << name
+    end
+  end
+  puts sorted_by_cohort
 end
 
 def first_letter(students)
@@ -71,6 +81,5 @@ def shorter_than(students)
 end
 
 students = input_students
-print_header
 print(students)
-print_footer(students)
+print_by_cohort(students)
