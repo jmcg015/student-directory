@@ -44,7 +44,7 @@ def input_students
   #get the first name
   name = STDIN.gets.chomp
   #while the name is not empty, repeat this code
-  while !name.empty? do
+  while !name.empty?
     #add the student hash to the array
     student_hash(name, :november)
     puts "Now we have #{@students.count} students"
@@ -55,27 +55,34 @@ end
 
 def save_students
   #Open the file for writing
-  file = File.open("students.csv", "w")
-  #Iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
+  File.open(@filename, "w") { |file|
+    #Iterate over the array of students
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
+  }
+  puts "Saved #{@filename}"
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(",")
-    student_hash(name, cohort)
+def load_students
+  puts "Enter a file to load"
+  @filename = STDIN.gets.chomp
+  if @filename.nil?
+    @filename = "students.csv"
   end
-  file.close
+  File.open(@filename, "r") { |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      student_hash(name, cohort)
+    end
+  }
+  puts "Loaded #{@filename}"
 end
 
 def student_hash(name, cohort)
-  @students << {name: name, cohort: cohort.to_sym}
+  @students << { name: name, cohort: cohort.to_sym }
 end
 
 def try_load_students
