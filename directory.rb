@@ -1,3 +1,4 @@
+require "csv"
 @students = []
 
 def interactive_menu
@@ -72,12 +73,13 @@ def load_students
   if @filename.nil?
     @filename = "students.csv"
   end
-  File.open(@filename, "r") { |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
+  CSV.open("./#{@filename}", "r") do |csv|
+    csv.readlines.each do |line|
+      name = line[0]
+      cohort = line[1]
       student_hash(name, cohort)
     end
-  }
+  end
   puts "Loaded #{@filename}"
 end
 
